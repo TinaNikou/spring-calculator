@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http//www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Web Calculator App</title>
+</head>
+
+<body>
+	<h1>Web Calc App</h1>
+	<form th:action="@{/calculate}" method="POST" th:object="${calc}">
+		<p><label for="a">Enter first number:</label>
+			<input th:field="*{a}" />
+		</p>
+
+		<p><label for="b">Enter first number:</label>
+			<input th:field="*{b}" />
+		</p>
+
+		<p><label for="a">Enter first number:</label>
+			<input th:each="o : ${operators}" type="radio" th:field="*{operator}" 
+				th:value="${o.symbol}" th:text="${o.symbol}" />
+		</p>
+		<button type="submit">Calculate!</button>
+	</form>
+
+	<th:block th:if="${prev.size gt 0}">
+		<hr/>
+		<h2>Previous Calculations...</h2>
+		<p th:each="calc : ${prev}">
+			<span th:text="${calc.a}" />&nbsp;<span th:text="${calc.operator}" />&nbsp;
+			<span th:text="${calc.b}" />&nbsp;<span th:text="'&nbsp;&equals;&nbsp;'" /><span th:text="${calc.answer}" />&nbsp;
+		</p>
+	</th:block>
+	<th:block th:if="${calc.answer ne null}">
+		<hr/>
+		<h2>Answer!!!</h2>
+		<p>
+			<span th:text="${calc.a}" />&nbsp;<span th:text="${calc.operator}" />&nbsp;
+			<span th:text="${calc.b}" />&nbsp;<span th:text="'&nbsp;&equals;&nbsp;'" /><span th:text="${calc.answer}" />&nbsp;
+		</p>
+	</th:block>
+</body>
+
+</html>
