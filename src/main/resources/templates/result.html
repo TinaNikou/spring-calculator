@@ -21,7 +21,8 @@
 			<input th:each="o : ${operators}" type="radio" th:field="*{operator}" 
 				th:value="${o.symbol}" th:text="${o.symbol}" />
 		</p>
-		<button type="submit">Calculate!</button>
+		<button type="submit">Calculate!</button><div sec:authorize="isAuthenticated() and hasRole('ADMIN')">
+			<a th:href="@{/reset}">Delete All Calculations</a></div>
 	</form>
 
 	<th:block th:if="${prev.size gt 0}">
